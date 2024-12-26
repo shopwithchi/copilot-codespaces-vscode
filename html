@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopwithchi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .payment-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to [Shopwithchi]</h1>
+        <p>Your tagline goes here</p>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+    </nav>
+    <div class="content" id="home">
+        <h2>Our Products and Services</h2>
+        <p>Explore what we offer to our valuable customers.</p>
+        <button class="payment-button" onclick="payWithPaystack()">Make Payment</button>
+    </div>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'YOUR_PUBLIC_KEY', // Replace with your public key
+                email: 'customer@example.com',
+                amount: 10000, // Amount in kobo (e.g., 10000 kobo = 100 NGN)
+                currency: 'NGN',
+                ref: '' + Math.floor(Math.random() * 1000000000 + 1), // Generate a random reference
+                callback: function(response) {
+                    alert('Payment successful. Transaction reference: ' + response.reference);
+                },
+                onClose: function() {
+                    alert('Transaction was not completed, window closed.');
+                },
+            });
+            handler.openIframe();
+        }
+    </script>
+</body>
+</html>
